@@ -12,8 +12,8 @@ const [produtos, setProdutos] = useState([]);
 
 async function queryProdutos(nomeDoProduto = null) {
     try{
-       const produtosRef = collection(db, "produtos");
-       const queryProdutos = query(produtosRef, where("NomeDoProduto", "==", "abacaxi"));
+       const produtosRef = collection(db, "produto");
+       const queryProdutos = query(produtosRef, where("nomedoproduto", "==", "abacaxi"));
        // execute query 
        const querySnapshot = await getDocs(query);
     } catch (error) {
