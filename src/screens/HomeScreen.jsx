@@ -1,29 +1,45 @@
-import { View } from "react-native"
-import { Text } from "react-native-paper"
-import { db } from "../config /firebase";
-import { useState } from "react";
+import { FlatList, View } from "react-native";
+import { Text, TextInput } from "react-native-paper";
+import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-
+import { db } from "../config /firebase";
 
 export default function HomeScreen() {
- 
+  const [nomeDoProduto, setNomeDoProduto] = useState("");
+  const [busca, setBusca] = useState([]);
 
-const [produtos, setProdutos] = useState([]);
+  async function queryProduto(nomeDoProduto = null) {
+    const produtosRef = collection(db, "produto");
+    const buscaProduto = query(
+      produtosRef,
+      where("NomeDoProduto", "==", busca)
+    );
+    const resultadoSnapshot = await getDocs(buscaProduto);
 
-async function queryProdutos(nomeDoProduto = null) {
-    try{
-       const produtosRef = collection(db, "produto");
-       const queryProdutos = query(produtosRef, where("nomedoproduto", "==", "abacaxi"));
-       // execute query 
-       const querySnapshot = await getDocs(query);
-    } catch (error) {
-        console.log(error);
-    }
-}
+    const listaDeProdutos = resultadoSnapshot.docs.map((doc) => doc.data());
 
-   return (
-        <View>
-            <Text>Home Screen</Text>
-        </View>
-    )
+    console.log(listaDeProdutos);
+  }
+
+  useEffect(() => {
+    console.log("busca", busca);
+  }, [busca]);
+
+  return (
+    <View>
+      <Text>Home Screen</Text>
+      <TextInput
+        label="Nome do Produto"
+        value={busca}
+        onChangeText={setBusca}
+      />
+      <FlatList
+        data={busca}
+        renderItem={({ item }) => (
+          <Text key={item.id}>{item.NomeDoProduto}</Text>
+        )}
+        // keyExtractor={(item) => item.id}
+      />
+    </View>
+  );
 }
