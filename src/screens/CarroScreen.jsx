@@ -35,7 +35,7 @@ export default function CarroSrc() {
   }, [NomeDoCarro]);
 
   return (
-    <View style={{ paddingTop: 100, }}>
+    <View style={{ paddingTop: 100,backgroundColor:"#6F54F7", height:'100%' ,}}>
       <Text style={{ textAlign: "center", paddingBottom: 10, fontSize: 30, }}>Buscar Carro</Text> {/* Nissan GT R35 */}
       <TextInput
         label="Nome do Carro"

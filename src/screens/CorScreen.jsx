@@ -37,7 +37,7 @@ export default function CorSrc() {
   }, [nomeCor]);
 
   return (
-    <View style={{ paddingTop: 100, }}>
+    <View style={{ paddingTop: 100, backgroundColor:"#6F54F7", height:'100%' ,}}>
       <Text style={{ textAlign: "center", paddingBottom: 10, fontSize: 30, }}>Buscar Cor</Text> {/* Preto */}
       <TextInput
         label="Nome da Cor"
