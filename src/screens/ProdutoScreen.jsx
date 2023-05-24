@@ -2,10 +2,9 @@ import { FlatList, View } from "react-native";
 import { Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../config /firebase";
+import { db } from "../config/firebase";
 
-
-export default function ProdutoScreen() {
+export default function ProdutoSrc() {
   const [nomeDoProduto, setNomeDoProduto] = useState("");
   const [busca, setBusca] = useState([]);
 

@@ -3,7 +3,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native-web";
-import { db } from "../config /firebase";
+import { db } from "../config/firebase";
 
 
 export default function CorSrc() {

@@ -3,51 +3,49 @@ import { View, FlatList } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { styles } from "../utils/styles";
-import { db } from "../config /firebase";
+import { db } from "../config/firebase";
 
-export default function BuscarFruta({ navigation }) {
-  const [fruta, setfruta] = useState([]);
-  const [NomeDaFruta, setNomeDaFruta] = useState("");
+export default function PessoaSrc({ navigation }) {
+  const [pessoa, setpessoa] = useState([]);
+  const [NomeDaPessoa, setNomeDaPessoa] = useState("");
 
-  async function queryCor(NomeDaFruta = null) {
+  async function queryCor(NomeDaPessoa = null) {
     try {
-      if (!NomeDaFruta) return;
-      const corRef = collection(db, "cor");
-      const queryCor = query(
-        corRef,
-        where("NomeDaFruta", ">=", NomeDaFruta),
-        where("NomeDaFruta", "<=", NomeDaFruta + "\uf8ff")
+      if (!NomeDaPessoa) return;
+      const pessoaRef = collection(db, "pessoa");
+      const queryPessoa = query(
+        pessoaRef,
+        where("NomeDaPessoa", ">=", NomeDaPessoa),
+        where("NomeDaPessoa", "<=", NomeDaPessoa + "\uf8ff")
       );
 
-      const querySnapshot = await getDocs(queryFruta);
-      const frutaTemp = [];
+      const querySnapshot = await getDocs(queryPessoa);
+      const pessoaTemp = [];
       querySnapshot.forEach((doc) => {
         corTemp.push(doc.data());
       });
-      setCor(frutaTemp);
+      setCor(pessoaTemp);
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    queryCor(NomeDaFruta);
-  }, [NomeDaFruta]);
+    queryCor(NomeDaPessoa);
+  }, [NomeDaPessoa]);
 
   return (
     <View style={styles.container}>
       <Text>Home</Text>
       <TextInput
-        label="Nome da Fruta"
-        value={NomeDaFruta}
-        onChangeText={setNomeDaFruta}
+        label="Nome da Pessoa"
+        value={NomeDaPessoa}
+        onChangeText={setNomeDaPessoa}
       />
 
       <FlatList
-        data={cor}
-        renderItem={({ item }) => (
-          <Text key={item.id}>{item.NomeDaFruta}</Text>
-        )}
+        data={pessoa}
+        renderItem={({ item }) => <Text key={item.id}>{item.NomeDaPessoa}</Text>}
         // keyExtractor={(item) => item.id}
       />
     </View>

@@ -3,13 +3,14 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { Text, TextInput } from "react-native-paper";
 import { useEffect, useState } from "react";
 import { FlatList } from "react-native-web";
-import { db } from "../config /firebase";
+import { db } from "../config/firebase";
 
 export default function AnimalSrc() {
   const [animal, setAnimal] = useState([]);
   const [NomeDoAnimal, setNomeDoAnimal] = useState("");
 
-  async function queryAnimal(nomeAnimal = null) {
+  async function queryAnimal(NomeDoAnimal = null) {
+    if (!NomeDoAnimal) return
     try {
       const animalRef = collection(db, "animal");
       const queryAnimal = query(
@@ -17,34 +18,36 @@ export default function AnimalSrc() {
         where("NomeDoAnimal", "==", NomeDoAnimal)
       );
       const querySnapshot = await getDocs(queryAnimal);
-      
+
       const animais = [];
       querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        animais.push(data);
-      });
-      
-      setAnimal(animais);
+        animais.push(doc.data());
+      },
+      setAnimal(animais)     
+      );
+
     } catch (error) {
       console.log(error);
     }
   }
 
   useEffect(() => {
-    queryAnimal(NomeDo);
-  }, [nomeAnimal]);
+    queryAnimal(NomeDoAnimal);
+  }, [NomeDoAnimal]);
 
   return (
-    <View style={{ paddingTop: 100, }}>
-      <Text style={{ textAlign: "center", paddingBottom: 10, fontSize: 30, }}>Buscar Animal</Text> {/* Cachorro */}
+    <View style={{ paddingTop: 100 }}>
+      <Text style={{ textAlign: "center", paddingBottom: 10, fontSize: 30 }}>
+        Buscar Animal
+      </Text>
       <TextInput
         label="Nome do Animal"
-        value={nomeAnimal}
-        onChangeText={setNomeAnimal}
+        value={NomeDoAnimal}
+        onChangeText={setNomeDoAnimal}
       />
       <FlatList
-        data={Animal}
-        renderItem={({ item }) => <Text>{item.NomeAnimal}</Text>}
+        data={animal}
+        renderItem={({ item }) => <Text>{item.NomeDoAnimal}</Text>}
         keyExtractor={(item) => item.id}
       />
     </View>
