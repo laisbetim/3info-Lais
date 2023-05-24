@@ -8,6 +8,8 @@ export default function HomeSrc({ navigation }) {
       style={{
         textAlign: "center",
         paddingTop: 100,
+        backgroundColor: "#6F54F7",
+        height: "100%",
       }}
     >
       <Text style={{ fontSize: 30 }}>Página Inicial</Text>
